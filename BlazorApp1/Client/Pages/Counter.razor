@@ -1,0 +1,45 @@
+﻿@page "/counter"
+@inject HttpClient Http
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary mb-3" @onclick="IncrementCount">Click me</button>
+
+
+@if (dict != null)
+{
+    foreach (var item in dict)
+    {
+        <p>@item.Key : @item.Value</p>
+    }
+}
+
+@if (test != null)
+{
+    <p class="text-warning">@test</p>
+}
+
+@code {
+    private int currentCount = 0;
+    private string? test;
+    private Dictionary<string, string>? dict;
+    private async Task IncrementCount()
+    {
+        currentCount++;
+
+        dict = await Http.GetFromJsonAsync<Dictionary<string, string>>("weather/env");
+
+        foreach (var item in dict)
+        {
+            Console.WriteLine($"{item.Key} : {item.Value}");
+        }
+        
+        test = await Http.GetFromJsonAsync<string>("weather/app");
+
+        Console.WriteLine($"***** {test} *****");
+    }
+}
