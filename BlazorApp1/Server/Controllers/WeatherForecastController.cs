@@ -58,5 +58,14 @@ namespace BlazorApp1.Server.Controllers
             string str = configuration["Test"] ?? "Undefined";
             return Ok($"\"{str}\"");
         }
+
+        [HttpGet("key")]
+        public IActionResult Getkey()
+        {
+            var configuration = HttpContext.RequestServices.GetRequiredService<IConfiguration>();
+
+            string str = configuration["envkey"] ?? "Undefined";
+            return Ok($"\"{str}\"");
+        }
     }
 }
