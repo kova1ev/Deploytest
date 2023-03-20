@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace BlazorApp1
 {
     public class Program
@@ -7,6 +9,12 @@ namespace BlazorApp1
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = (int)HttpStatusCode.TemporaryRedirect;
+                options.HttpsPort = 5001;
+            });
+
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
