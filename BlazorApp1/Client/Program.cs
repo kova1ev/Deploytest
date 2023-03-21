@@ -14,8 +14,9 @@ namespace BlazorApp1.Client
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            Console.WriteLine(builder.HostEnvironment.BaseAddress);
             var s1 = builder.HostEnvironment.Environment;
-            await Console.Out.WriteLineAsync($"---> {s1}");
+            await Console.Out.WriteLineAsync($"Environment > {s1}");
             await builder.Build().RunAsync();
         }
     }

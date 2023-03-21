@@ -1,4 +1,5 @@
 using BlazorApp1.Shared;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorApp1.Server.Controllers
@@ -66,6 +67,20 @@ namespace BlazorApp1.Server.Controllers
 
             string str = configuration["envkey"] ?? "Undefined";
             return Ok($"\"{str}\"");
+        }
+
+        [HttpGet("route")]
+        public IActionResult GetRoute()
+        {
+
+            var basepath = HttpContext.Request.Host;
+            var path = HttpContext.Request.Path;
+
+            var full = HttpContext.Request.GetDisplayUrl();
+
+            var prot = HttpContext.Request.Protocol;
+            var sch = HttpContext.Request.Scheme;
+            return Ok(new { prot, sch, basepath, path, full });
         }
     }
 }
