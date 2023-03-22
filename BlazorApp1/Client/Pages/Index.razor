@@ -9,10 +9,13 @@ Welcome to your new app.
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 
-@code{
+@code {
     protected async override Task OnInitializedAsync()
     {
-        string key = await Http.GetFromJsonAsync<string>("weather/key");
-        Console.WriteLine(key);
+        var result = await Http.GetFromJsonAsync<Key>("weather/key");
+        Console.WriteLine(result.EnvKey);
+        Console.WriteLine(result.UserKey);
     }
+
+    record Key(string EnvKey, string UserKey);
 }
