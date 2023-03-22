@@ -65,8 +65,9 @@ namespace BlazorApp1.Server.Controllers
         {
             var configuration = HttpContext.RequestServices.GetRequiredService<IConfiguration>();
 
-            string str = configuration["envkey"] ?? "Undefined";
-            return Ok($"\"{str}\"");
+            string envKey = configuration["Keys:envKey"] ?? "Undefined";
+            string userKey = configuration["Keys:userKey"] ?? "Undefined";
+            return Ok(new { envKey, userKey });
         }
 
         [HttpGet("route")]
