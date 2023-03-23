@@ -10,6 +10,7 @@ namespace BlazorApp1
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
+            builder.Configuration.AddJsonFile("Secrets.json");
 
             var app = builder.Build();
 
