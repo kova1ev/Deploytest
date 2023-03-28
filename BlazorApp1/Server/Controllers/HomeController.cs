@@ -86,7 +86,19 @@ namespace BlazorApp1.Server.Controllers
             var ipRemote = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Undefined";
             var ipLocal = HttpContext.Connection.LocalIpAddress?.ToString() ?? "Undefined";
 
-            return Ok(new { ipRemote, ipLocal });
+            var CF_Connecting_IP = HttpContext.Request.Headers["CF-Connecting-IP"];
+            var X_Forwarded_For = HttpContext.Request.Headers["X-Forwarded-For"];
+
+
+            return Ok(new { CF_Connecting_IP, X_Forwarded_For });
+        }
+
+
+        [HttpGet("headers")]
+        public IActionResult GetHeadres()
+        {
+            var headers = HttpContext.Request.Headers;
+            return Ok(headers);
         }
     }
 }

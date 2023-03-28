@@ -12,7 +12,7 @@ Welcome to your new app.
 @code {
     protected async override Task OnInitializedAsync()
     {
-        var result = await Http.GetFromJsonAsync<Key>("home/key");
+        var result = await Http.GetFromJsonAsync<Key>("api/home/key");
         Console.WriteLine(result.EnvKey);
         Console.WriteLine(result.UserKey);
     }

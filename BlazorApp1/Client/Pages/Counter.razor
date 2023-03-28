@@ -34,7 +34,7 @@
     {
         currentCount++;
 
-        dict = await Http.GetFromJsonAsync<Dictionary<string, string>>("home/env");
+        dict = await Http.GetFromJsonAsync<Dictionary<string, string>>("api/home/env");
 
         foreach (var item in dict)
         {
