@@ -100,5 +100,23 @@ namespace BlazorApp1.Server.Controllers
             var headers = HttpContext.Request.Headers;
             return Ok(headers);
         }
+
+        [HttpGet("geo")]
+        public async Task<ActionResult> GetGeo()
+        {
+            string ipAddress = HttpContext.Request.Headers["CF-Connecting-IP"];
+            string result = string.Empty;
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://ip-api.com/json/");
+
+                HttpResponseMessage httpResponse = await client.GetAsync(ipAddress);
+                httpResponse.EnsureSuccessStatusCode();
+
+                result = await httpResponse.Content.ReadAsStringAsync();
+
+            }
+            return Ok(result);
+        }
     }
 }
