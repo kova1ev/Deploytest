@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorApp1.Server.Controllers
 {
-    [Route("home")]
+    [Route("api/home")]
     [ApiController]
     public class HomeController : ControllerBase
     {
@@ -76,6 +76,17 @@ namespace BlazorApp1.Server.Controllers
             int index = rnd.Next(0, urls.Length);
 
             return Ok(new { link = urls[index] });
+        }
+
+
+
+        [HttpGet("ip")]
+        public IActionResult GetIp()
+        {
+            var ipRemote = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Undefined";
+            var ipLocal = HttpContext.Connection.LocalIpAddress?.ToString() ?? "Undefined";
+
+            return Ok(new { ipRemote, ipLocal });
         }
     }
 }
