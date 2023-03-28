@@ -1,3 +1,5 @@
+using BlazorApp1.Data;
+
 namespace BlazorApp1
 {
     public class Program
@@ -10,6 +12,9 @@ namespace BlazorApp1
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
+
+            builder.Services.AddDb();
+
 
             var app = builder.Build();
 

@@ -1,0 +1,47 @@
+﻿@page "/books"
+@using BlazorApp1.Shared
+@inject HttpClient Http
+
+<PageTitle>Books</PageTitle>
+
+<h1>Books</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (_books == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Pages</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in _books)
+            {
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.Title</td>
+                    <td>@book.Pages</td>
+                    <td>@book.Author</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Book[]? _books;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _books = await Http.GetFromJsonAsync<Book[]>("api/book");
+    }
+}
