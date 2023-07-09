@@ -1,4 +1,5 @@
 using BlazorApp1.Data;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace BlazorApp1
 {
@@ -15,7 +16,10 @@ namespace BlazorApp1
 
             builder.Services.AddDb();
 
-
+            builder.Services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.d
@@ -31,7 +35,7 @@ namespace BlazorApp1
             }
 
             //app.UseHttpsRedirection();
-
+            app.UseForwardedHeaders();
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
