@@ -41,7 +41,7 @@ namespace BlazorApp1.Server.Controllers
             var configuration = HttpContext.RequestServices.GetRequiredService<IConfiguration>();
 
             string str = configuration["Test"] ?? "Undefined";
-            return Ok($"\"{str}\"");
+            return Ok(new { str });
         }
 
         [HttpGet("key")]
@@ -88,9 +88,10 @@ namespace BlazorApp1.Server.Controllers
 
             var CF_Connecting_IP = HttpContext.Request.Headers["CF-Connecting-IP"];
             var X_Forwarded_For = HttpContext.Request.Headers["X-Forwarded-For"];
+            var True_Client_IP = HttpContext.Request.Headers["True-Client-IP"];
 
 
-            return Ok(new { CF_Connecting_IP, X_Forwarded_For });
+            return Ok(new { ipRemote, ipLocal, CF_Connecting_IP, X_Forwarded_For, True_Client_IP });
         }
 
 
